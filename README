@@ -1,0 +1,14 @@
+
+Homework Assignment for my CS:4640 Computer Security class at UIowa.
+
+Implement two encryption algorithms out of the three possible choices:
+    -Vigenere cipher*
+    -Permutation cipher*
+    -Simple Enigma machine with one rotor
+
+* = one of my choices
+
+Also must add a pre-processing step that removes non-alphabetic characters 
+and spaces.  Then a second version of pre-processing that also removes spaces.
+
+See Assignment_1.pdf for more specific details.
