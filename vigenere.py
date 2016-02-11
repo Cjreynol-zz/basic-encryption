@@ -1,18 +1,23 @@
-class StreamCipherBase():
+class Vigenere():
     """
-    Base class for encryption/decryption algorithms that handles 
-    character-by-character processing.
+    Vigenere cipher for encryption/decryption
     """
     def __init__(self):
         from string import ascii_lowercase
         self.letters = ascii_lowercase
 
     def encrypt_char(self, plaintext_index, key_letter_index):
-        pass
-    
-    def decrypt_char(self, plaintext_index, key_letter_index):
-        pass
+        """
+        Ci = (Pi + Ki) % 26
+        """
+        return (plaintext_index + key_letter_index) % 26
 
+    def decrypt_char(self, ciphertext_index, key_letter_index):
+        """
+        Pi = (Ci - Ki) % 26
+        """
+        return (ciphertext_index - key_letter_index) % 26
+    
     def encrypt_message(self, plaintext, key):
         """
         Runs encrypt_char in a loop on the plaintext.
@@ -55,21 +60,3 @@ class StreamCipherBase():
         if i >= len(text):
             i = 0
         return i
-
-
-
-class Vigenere(StreamCipherBase):
-    """
-    Vigenere cipher encryption/decryption
-    """
-    def encrypt_char(self, plaintext_index, key_letter_index):
-        """
-        Ci = (Pi + Ki) % 26
-        """
-        return (plaintext_index + key_letter_index) % 26
-
-    def decrypt_char(self, ciphertext_index, key_letter_index):
-        """
-        Pi = (Ci - Ki) % 26
-        """
-        return (ciphertext_index - key_letter_index) % 26

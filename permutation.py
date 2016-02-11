@@ -1,15 +1,28 @@
 
-class BlockCipherBase():
+class Permutation():
     """
-    Base class for encryption/decryption algorithms that work block by block.
+    Permutation cipher encrypt/decrypt.
     """
-    
     def encrypt_block(self, plaintext, plaintext_index, key):
-        pass
+        """
+        Permute the block of plaintext at plaintext_index using the key.
+        """
+        ciphertext = ""
+        for index in key:
+            ciphertext += plaintext[plaintext_index + index]
+
+        return ciphertext
 
     def decrypt_block(self, ciphertext, ciphertext_index, key):
-        pass
+        """
+        Permute the block of ciphertext at ciphertext_index using the key.
+        """
+        plaintext = ""
+        for index in range(len(key)):
+            plaintext += ciphertext[ciphertext_index + key.index(index)]
 
+        return plaintext
+    
     def encipher_message(self, input_text, key, cipher_function):
         """
         Permute the input text block-by-block.
@@ -47,29 +60,3 @@ class BlockCipherBase():
         plaintext += remainder * "q"
 
         return plaintext
-
-
-class Permutation(BlockCipherBase):
-    """
-    Permutation cipher encrypt/decrypt.
-    """
-    def encrypt_block(self, plaintext, plaintext_index, key):
-        """
-        Permute the block of plaintext at plaintext_index using the key.
-        """
-        ciphertext = ""
-        for index in key:
-            ciphertext += plaintext[plaintext_index + index]
-
-        return ciphertext
-
-    def decrypt_block(self, ciphertext, ciphertext_index, key):
-        """
-        Permute the block of ciphertext at ciphertext_index using the key.
-        """
-        plaintext = ""
-        for index in range(len(key)):
-            plaintext += ciphertext[ciphertext_index + key.index(index)]
-
-        return plaintext
-    
