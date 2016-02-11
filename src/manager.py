@@ -15,7 +15,7 @@ class EncryptionManager():
         key = self.load_key(args.key_file, args.algorithm)
         self.check_key(key, args.algorithm)
 
-        self.output_text = self.algorithm(input_text, key)
+        self.output_text = algorithm(input_text, key)
         
 
     def parser_setup(self):
@@ -28,11 +28,11 @@ class EncryptionManager():
 
         parser.add_argument("input_text", type=str, 
                     help="the filename of the input text")
+        parser.add_argument("key_file", type=str,
+                    help="the file containing the key to use for the encryption")
         parser.add_argument("algorithm", type=str,
                     help="the algorithm to use for encryption",
                     choices=["vigenere", "permutation"])
-        parser.add_argument("key_file", type=str,
-                    help="the file containing the key to use for the encryption")
         parser.add_argument("-n", "--no-spaces", 
                     help="indicate if preprocessor should remove spaces", 
                     action="store_true")
@@ -95,7 +95,7 @@ class EncryptionManager():
             key = key_file.read().strip()
         
             if algorithm_name == "permutation":
-                key = key_to_permute_key(key)
+                key = self.key_to_permute_key(key)
 
         return key
 

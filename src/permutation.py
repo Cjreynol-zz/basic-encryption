@@ -57,6 +57,6 @@ class Permutation():
         the length of the key.
         """
         remainder = len(plaintext) % len(key)
-        plaintext += remainder * "q"
+        plaintext += (len(key) - remainder) * "q"
 
         return plaintext
