@@ -13,7 +13,7 @@ if __name__ == "__main__":
 
     input_text = pre_process(args.input_text, args.no_spaces)
     algorithm = load_algorithm(args.algorithm, args.decrypt)
-    key = check_key(args.key)
+    key = load_key(args.key_file, args.algorithm)
 
     output_text = algorithm(input_text, key)
 
