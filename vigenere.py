@@ -1,6 +1,7 @@
-class CipherBase():
+class StreamCipherBase():
     """
-    Base class for encryption/decryption algorithms that handles processing.
+    Base class for encryption/decryption algorithms that handles 
+    character-by-character processing.
     """
     def __init__(self):
         from string import ascii_lowercase
@@ -57,7 +58,7 @@ class CipherBase():
 
 
 
-class Vigenere(CipherBase):
+class Vigenere(StreamCipherBase):
     """
     Vigenere cipher encryption/decryption
     """

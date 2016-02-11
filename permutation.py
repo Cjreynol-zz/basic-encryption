@@ -1,11 +1,44 @@
 
-class Permutation():
+class BlockCipherBase():
     """
-    Encrypts the plaintext by shuffling blocks of text using the key as a
-    pattern for block length and the mapping for positions.
+    Base class for encryption/decryption algorithms that work block by block.
     """
     
-    def pad(plaintext, key):
+    def encrypt_block(self, plaintext, plaintext_index, key):
+        pass
+
+    def decrypt_block(self, ciphertext, ciphertext_index, key):
+        pass
+
+    def encipher_message(self, input_text, key, cipher_function):
+        """
+        Permute the input text block-by-block.
+        """
+        input_text = self.pad(input_text, key)
+        input_text_index = 0
+        
+        output_text = ""
+        while input_text_index < len(input_text):
+            output_text += cipher_function(input_text, input_text_index, key)
+            input_text_index += len(key)
+
+        return output_text
+
+    def encrypt_message(self, plaintext, key):
+        """
+        Permute the plaintext block-by-block.
+        """
+        ciphertext = self.encipher_message(plaintext, key, self.encrypt_block)
+        return ciphertext
+
+    def decrypt_message(self, ciphertext, key):
+        """
+        Permute the ciphertext block-by-block.
+        """
+        plaintext = self.encipher_message(ciphertext, key, self.decrypt_block)
+        return plaintext
+
+    def pad(self, plaintext, key):
         """
         Return the plaintext padded to be a length that divides evenly by 
         the length of the key.
@@ -15,7 +48,12 @@ class Permutation():
 
         return plaintext
 
-    def encrypt_block(plaintext, plaintext_index, key):
+
+class Permutation(BlockCipherBase):
+    """
+    Permutation cipher encrypt/decrypt.
+    """
+    def encrypt_block(self, plaintext, plaintext_index, key):
         """
         Permute the block of plaintext at plaintext_index using the key.
         """
@@ -25,29 +63,13 @@ class Permutation():
 
         return ciphertext
 
-    def decrypt_block(ciphertext, ciphertext_index, key):
+    def decrypt_block(self, ciphertext, ciphertext_index, key):
         """
         Permute the block of ciphertext at ciphertext_index using the key.
         """
-        pass
+        plaintext = ""
+        for index in range(len(key)):
+            plaintext += ciphertext[ciphertext_index + key.index(index)]
 
-    def encrypt_message(plaintext, key):
-        """
-        Permute the plaintext block-by-block.
-        """
-        plaintext = self.pad(plaintext, key)
-        plaintext_index = 0
-        
-        ciphertext = ""
-        while plaintext_index < len(plaintext):
-            ciphertext += encrypt_block(plaintext, plaintext_indext, key)
-            plaintext_index += len(key)
-
-        return ciphertext
-
-    def decrypt_message(ciphertext, key):
-        """
-        Permute the ciphertext block-by-block.
-        """
-        pass
-
+        return plaintext
+    
