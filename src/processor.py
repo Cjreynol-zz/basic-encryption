@@ -1,3 +1,8 @@
+"""                                                                               
+Implementation of ciphers for CS:4640 Computer Security                           
+Chad Reynolds                                                                     
+Due:  February 22, 2016                                                           
+"""  
 
 class Processor():
     """
@@ -30,7 +35,7 @@ class Processor():
         Same as preprocess_text() but with no spaces
         """
 
-        text = preprocess_text(text)
+        text = self.preprocess_text(text)
         new_text = ""
         for char in text:
             # only append lowercase letters to the processed plaintext

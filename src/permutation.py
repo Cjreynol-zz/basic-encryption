@@ -1,25 +1,35 @@
+"""
+Implementation of ciphers for CS:4640 Computer Security
+Chad Reynolds
+Due:  February 22, 2016
+"""
+
 
 class Permutation():
     """
     Permutation cipher encrypt/decrypt.
     """
-    def encrypt_block(self, plaintext, plaintext_index, key):
+    def __init__(self):
+        from string import ascii_lowercase
+        self.alphabet = ascii_lowercase
+
+    def encrypt_block(self, plaintext_block, key):
         """
         Permute the block of plaintext at plaintext_index using the key.
         """
         ciphertext = ""
         for index in key:
-            ciphertext += plaintext[plaintext_index + index]
+            ciphertext += plaintext_block[index]
 
         return ciphertext
 
-    def decrypt_block(self, ciphertext, ciphertext_index, key):
+    def decrypt_block(self, ciphertext_block, key):
         """
         Permute the block of ciphertext at ciphertext_index using the key.
         """
         plaintext = ""
         for index in range(len(key)):
-            plaintext += ciphertext[ciphertext_index + key.index(index)]
+            plaintext += ciphertext_block[key.index(index)]
 
         return plaintext
     
@@ -32,8 +42,26 @@ class Permutation():
         
         output_text = ""
         while input_text_index < len(input_text):
-            output_text += cipher_function(input_text, input_text_index, key)
-            input_text_index += len(key)
+            # get len(key) characters that are not spaces to encipher
+            to_encipher = ""
+            temp_index = input_text_index
+            while len(to_encipher) < len(key):
+                if input_text[temp_index] in self.alphabet:
+                    to_encipher += input_text[temp_index]
+                temp_index += 1
+
+            # actual encipher step
+            enciphered = cipher_function(to_encipher, key)
+
+            # add the enciphered characters to the output string
+            # go back through un-enciphered text to find space locations
+            while input_text_index < temp_index:
+                if input_text[input_text_index] in self.alphabet:
+                    output_text += enciphered[0]
+                    enciphered = enciphered[1:]
+                else:
+                    output_text += input_text[input_text_index]
+                input_text_index += 1
 
         return output_text
 
@@ -56,7 +84,8 @@ class Permutation():
         Return the plaintext padded to be a length that divides evenly by 
         the length of the key.
         """
-        remainder = len(plaintext) % len(key)
-        plaintext += (len(key) - remainder) * "q"
+        remainder = (len(plaintext) - plaintext.count(' ')) % len(key)
+        if remainder != 0:
+            plaintext += (len(key) - remainder) * "q"
 
         return plaintext

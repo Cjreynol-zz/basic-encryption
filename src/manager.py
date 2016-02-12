@@ -1,3 +1,9 @@
+"""                                                                               
+Implementation of ciphers for CS:4640 Computer Security                           
+Chad Reynolds                                                                     
+Due:  February 22, 2016                                                           
+"""  
+
 
 class EncryptionManager():
     """

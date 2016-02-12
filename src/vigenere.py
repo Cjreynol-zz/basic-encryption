@@ -1,10 +1,17 @@
+"""                                                                               
+Implementation of ciphers for CS:4640 Computer Security                           
+Chad Reynolds                                                                     
+Due:  February 22, 2016                                                           
+"""  
+
+
 class Vigenere():
     """
     Vigenere cipher for encryption/decryption
     """
     def __init__(self):
         from string import ascii_lowercase
-        self.letters = ascii_lowercase
+        self.alphabet = ascii_lowercase
 
     def encrypt_char(self, plaintext_index, key_letter_index):
         """
@@ -41,13 +48,13 @@ class Vigenere():
         output_text = ""
 
         for char in input_text:
-            in_index = self.letters.find(char)
+            in_index = self.alphabet.find(char)
             if in_index == -1:
                 output_text += char
             else:
-                kl_index = self.letters.find(key[key_index])
+                kl_index = self.alphabet.find(key[key_index])
                 key_index = self.increment(key_index, key)
-                output_text += self.letters[cipher_function(in_index, kl_index)]
+                output_text += self.alphabet[cipher_function(in_index, kl_index)]
 
         return output_text
 
