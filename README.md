@@ -30,8 +30,8 @@ The Vigenère cipher extends this idea by accepting a key longer than one charac
 Permutation
 -----------
 
-The Permutation cipher I implemented relies solely on transposition and not substitution like the Vigenère. Letters are shuffled within blocks according to the key. A key \(\sigma\) maps characters original positions to their new positions. Again using the plaintext “hello”, with the key of \(\sigma\) = ( 1 0 2 3 4 ), our plaintext becomes “ehllo”.
-We can see that all of the same letters are in place, but the character in index 0 has moved to index 0, and vice-versa. The indexes can be shuffled around in any order in the key, keeping in mind that certain keys (such as this one) will not be particularly effective at obscuring the meaning of the plaintext.
+The Permutation cipher relies solely on transposition and not substitution like the Vigenère. Letters are shuffled within blocks according to the key. A key \(\sigma\) maps characters original positions to their new positions. Again using the plaintext “hello”, with the key of \(\sigma\) = ( 1 0 2 3 4 ), our plaintext becomes “ehllo”.
+We can see that all of the same letters are in place, but the character in index 0 has moved to index 1, and vice-versa. The indexes can be shuffled around in any order in the key, keeping in mind that certain keys (such as this one) will not be particularly effective at obscuring the meaning of the plaintext.
 
 Installation and Running instructions
 =====================================
@@ -40,8 +40,7 @@ Installation
 ------------
 
 The “installation” is as simple as downloading the files to a location on your computer. However, the algorithms are coded in the Python programming language and thus depend on a Python installation being present. Specifically, I tested this with Python version 3.5.0 but I believe any Python3 installation should be capable of running the code.
-Find up-to-date install instructions for most platforms on the Python website:
-<span>https://www.python.org/downloads/</span>
+Find up-to-date install instructions for most platforms on the Python website: <span>https://www.python.org/downloads/</span>
 
 Running the tool
 ----------------
