@@ -35,33 +35,20 @@ class Permutation():
     
     def encipher_message(self, input_text, key, cipher_function):
         """
-        Permute the input text block-by-block.
+        Permute the text, without spaces, block-by-block, then add spaces 
+        back.
         """
-        input_text = self.pad(input_text, key)
-        input_text_index = 0
+        input_nospace_copy = input_text.replace(' ', '')
+        input_nospace_copy = self.pad(input_nospace_copy, key)
         
-        output_text = ""
-        while input_text_index < len(input_text):
-            # get len(key) characters that are not spaces to encipher
-            to_encipher = ""
-            temp_index = input_text_index
-            while len(to_encipher) < len(key):
-                if input_text[temp_index] in self.alphabet:
-                    to_encipher += input_text[temp_index]
-                temp_index += 1
+        input_copy_index = 0
 
-            # actual encipher step
-            enciphered = cipher_function(to_encipher, key)
+        output_nospace_text = ""
+        while input_copy_index < len(input_nospace_copy):
+            output_nospace_text += cipher_function(input_nospace_copy[input_copy_index:input_copy_index + len(key)] , key)
+            input_copy_index += len(key)
 
-            # add the enciphered characters to the output string
-            # go back through un-enciphered text to find space locations
-            while input_text_index < temp_index:
-                if input_text[input_text_index] in self.alphabet:
-                    output_text += enciphered[0]
-                    enciphered = enciphered[1:]
-                else:
-                    output_text += input_text[input_text_index]
-                input_text_index += 1
+        output_text = self.re_space(input_text, output_nospace_text)
 
         return output_text
 
@@ -89,3 +76,20 @@ class Permutation():
             plaintext += (len(key) - remainder) * "q"
 
         return plaintext
+
+    def re_space(self, input_text, output_nospace_text):
+        """
+        Return the output text with spaces in the same positions as in the 
+        input text.
+        """
+
+        output_index = 0
+        output_text = ""
+        for char in input_text:
+            if char == ' ':
+                output_text += ' '
+            else:
+                output_text += output_nospace_text[output_index]
+                output_index += 1
+
+        return output_text

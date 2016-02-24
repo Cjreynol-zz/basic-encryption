@@ -1,3 +1,4 @@
+#!/usr/bin/env python3
 """
 Implementation of ciphers for CS:4640 Computer Security
 Chad Reynolds
@@ -12,3 +13,4 @@ if __name__ == "__main__":
     output_text = encryption_manager.get_output_text()
 
     print(output_text)
+
